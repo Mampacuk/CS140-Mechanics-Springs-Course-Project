@@ -4,11 +4,14 @@
 # include <vector>
 # include <cmath>
 # include <string>
+# include <stdexcept>
 
 namespace aua
 {
-	typedef std::vector<double> double_vector;
+	class spring;
 
+	typedef std::vector<double> double_vector;
+	typedef spring (spring::*spring_connection)(const spring&) const;
 }
 
 #endif
