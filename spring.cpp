@@ -89,4 +89,10 @@ namespace aua
 	{
 		return (in_parallel(that));
 	}
+
+	std::ostream &operator<<(std::ostream &o, const spring &s)
+	{
+		o << s.get_k();
+		return (o);
+	}
 }

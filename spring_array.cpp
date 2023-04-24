@@ -6,7 +6,10 @@ namespace aua
 
 	spring_array::~spring_array() {}
 
-	//...
+	spring_array::spring_array(const spring_array&) {}
+
+	spring_array &spring_array::operator=(const spring_array&) { return (*this); }
+
 	spring spring_array::equivalent_spring(const std::string &spring_expr)
 	{
 		size_t i = 0;
@@ -50,12 +53,12 @@ namespace aua
 
 	bool spring_array::is_closing(const char opening, const char closing)
 	{
-		if (closing != '}' && closing != ']')
+		if (closing != '}' && closing != ']' && closing != '[' && closing != '{')
 			throw std::logic_error("Invalid Closing Bracket/Brace Encountered.");
 		if (opening == '{')
 			return (closing == '}');
-		else if (opening == '{');
-			return (closing == '}');
+		else if (opening == '[')
+			return (closing == ']');
 		throw std::logic_error("Invalid Opening Bracket/Brace Encountred.");
 	}
 }
