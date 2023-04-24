@@ -57,7 +57,6 @@ namespace aua
 	};
 
 	std::ostream &operator<<(std::ostream &o, const spring &s);
-
 }
 
 #endif
