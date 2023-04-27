@@ -1,9 +1,11 @@
 NAME		= springs
 
-SRCS		= $(wildcard *.cpp)
-OBJS		= $(SRCS:.cpp=.o)
+SRC_DIR		= src
+INC_DIR		= include
+SRC			= $(wildcard $(SRC_DIR)/*.cpp)
+OBJ			= $(SRC:.cpp=.o)
 CXX			= c++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -I$(INC_DIR)
 RM			= rm -rf
 
 ifeq ($(OS), Windows_NT)
@@ -15,11 +17,11 @@ all: $(NAME)
 .cpp.o:
 	@$(CXX) $(CXXFLAGS) -c $< -o $(<:.cpp=.o)
 
-$(NAME): $(OBJS)
-	@$(CXX) $(OBJS) $(CXXFLAGS) -o $(NAME)
+$(NAME): $(OBJ)
+	@$(CXX) $(OBJ) $(CXXFLAGS) -o $(NAME)
 
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJ)
 
 fclean: clean
 	@$(RM) $(NAME)
