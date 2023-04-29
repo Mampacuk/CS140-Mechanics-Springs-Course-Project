@@ -13,9 +13,11 @@ namespace aua
 	spring spring_array::equivalent_spring(const std::string &spring_expr)
 	{
 		size_t i = 0;
+		if (spring_expr.empty())
+			throw std::length_error("Empty Spring Expression Received.");
 		spring eff = build_spring(spring_expr, choose_connection(spring_expr[i]), i);
 		if (i != spring_expr.size())
-			throw std::logic_error("Invalid Bracket/Brace Sequence Received.");
+			throw std::invalid_argument("Invalid Bracket/Brace Sequence Received.");
 		return (eff);
 	}
 
@@ -26,7 +28,7 @@ namespace aua
 
 		i++;
 		if (i == spring_expr.size())
-			throw std::logic_error("Invalid Bracket/Brace Sequence Received.");
+			throw std::invalid_argument("Invalid Bracket/Brace Sequence Received.");
 		if (is_closing(spring_expr[start], spring_expr[i]))
 		{
 			i++;
@@ -48,17 +50,17 @@ namespace aua
 			return (spring::in_series);
 		else if (bracket == '[' || bracket == ']')
 			return (spring::in_parallel);
-		throw std::logic_error("Invalid Bracket/Brace Received.");
+		throw std::invalid_argument("Invalid Bracket/Brace Received.");
 	}
 
 	bool spring_array::is_closing(const char opening, const char closing)
 	{
 		if (closing != '}' && closing != ']' && closing != '[' && closing != '{')
-			throw std::logic_error("Invalid Closing Bracket/Brace Encountered.");
+			throw std::invalid_argument("Invalid Closing Bracket/Brace Encountered.");
 		if (opening == '{')
 			return (closing == '}');
 		else if (opening == '[')
 			return (closing == ']');
-		throw std::logic_error("Invalid Opening Bracket/Brace Encountred.");
+		throw std::invalid_argument("Invalid Opening Bracket/Brace Encountred.");
 	}
 } // namespace aua

@@ -90,6 +90,16 @@ namespace aua
 		return (in_parallel(that));
 	}
 
+	spring &spring::operator*=(const spring &that)
+	{
+		return (*this = *this * that);
+	}
+
+	spring &spring::operator+=(const spring &that)
+	{
+		return (*this = *this + that);
+	}
+
 	std::ostream &operator<<(std::ostream &o, const spring &s)
 	{
 		o << s.get_k();

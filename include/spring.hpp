@@ -28,6 +28,8 @@ namespace aua
 			spring			in_parallel(const spring &that) const;
 			spring			operator*(const spring &that) const;
 			spring			operator+(const spring &that) const;
+			spring			&operator*=(const spring &that);
+			spring			&operator+=(const spring &that);
 	};
 } // namespace aua
 
