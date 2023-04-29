@@ -2,13 +2,18 @@
 
 namespace aua
 {
-	converter::converter() {}
+	converter::converter() : _system(), _equivalent_spring() {}
 
 	converter::~converter() {}
 
-	converter::converter(const converter&) {}
+	converter::converter(const converter &other) : _system(other._system), _equivalent_spring(other._equivalent_spring) {}
 
-	converter &converter::operator=(const converter&) {}
+	converter &converter::operator=(const converter &other)
+	{
+		this->_system = other._system;
+		this->_equivalent_spring = other._equivalent_spring;
+		return (*this);
+	}
 
 	void converter::set_system(const std::string &system)
 	{
@@ -30,15 +35,23 @@ namespace aua
 		return (this->_equivalent_spring);
 	}
 
-	double converter::approximate_value(size_t samples, double period) const
+	double converter::approximate_value(size_t samples, double x0, double v0, double period) const
 	{
-		double omega_max = analyze_amplitudes(oscillate(samples, period), period);
+		double omega_max = analyze_amplitudes(oscillate(samples, x0, v0, period), period);
 		return (recover_value(omega_max));
 	}
 
-	double_vector converter::oscillate(size_t samples, double period) const
+	double_vector converter::oscillate(size_t samples, double x0, double v0, double period) const
 	{
-		return (this->_equivalent_spring.move(period, period / samples, 0)); // x0 = 0
+		std::cout << "equivalent spring with k = " << this->_equivalent_spring << std::endl;
+		std::cout << samples << " samples, period = " << period << ". oscillations are:" << std::endl;
+		double_vector oscillations = this->_equivalent_spring.move(period, period / samples, x0, v0);
+		for (size_t i = 0; i < oscillations.size(); i++)
+		{
+			std::cout << oscillations[i] << ' ';
+		}
+		std::cout << std::endl;
+		return (oscillations);
 	}
 
 	double converter::analyze_amplitudes(const double_vector &oscillations, double period) const
@@ -58,6 +71,7 @@ namespace aua
 				j_max = j;
 			}
 		}
-		return (omega0 * j_max);
+		std::cout << "j_max =" << j_max << std::endl;
+		return (!j_max ? omega0 : omega0 * j_max);
 	}
 }

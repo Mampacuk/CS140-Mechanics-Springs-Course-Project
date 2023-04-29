@@ -11,8 +11,6 @@ namespace aua
 			double	_k;	// stiffness coefficient
 			void	set_k(double k);
 			double	omega(double m) const;
-			double	A(double t0, double x0, double v0, double m) const;
-			double	B(double t0, double x0, double v0, double m) const;
 		public:
 			spring();
 			~spring();

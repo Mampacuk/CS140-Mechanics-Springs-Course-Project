@@ -26,6 +26,14 @@ int main()
 		aua::converter_float converter;
 
 		converter.construct_system("11.0");
+		std::cout << converter.get_system() << std::endl;
 		std::cout << converter.get_equivalent_spring() << std::endl;
+		std::cout << "approximation for \"11.0\": " << converter.approximate_value(7, 2, 3, 10) << std::endl;
+
+		converter.construct_system("111.11");
+		std::cout << converter.get_system() << std::endl;
+		std::cout << converter.get_equivalent_spring() << std::endl;
+
+		std::cout << "approximation for \"111.11\": " << converter.approximate_value(6, 1, 1, 10) << std::endl;
 	}
 }

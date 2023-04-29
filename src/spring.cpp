@@ -26,16 +26,6 @@ namespace aua
 		return (sqrt(get_k() / m));
 	}
 
-	double spring::A(double t0, double x0, double v0, double m) const
-	{
-		return (x0 * sin(omega(m) * t0) + (v0 * cos(omega(m) * t0)) / omega(m));
-	}
-
-	double spring::B(double t0, double x0, double v0, double m) const
-	{
-		return (x0 * cos(omega(m) * t0) - (v0 * sin(omega(m) * t0)) / omega(m));
-	}
-
 	double spring::get_k() const
 	{
 		return (this->_k);
@@ -58,13 +48,17 @@ namespace aua
 
 	double_vector spring::move(double t0, double t1, double dt, double x0, double v0, double m) const
 	{
+		std::cout << "in spring::move()" << std::endl;
+		std::cout << "t0 = " << t0 << ", t1 = " << t1 << ", dt = " << dt << ", x0 = " << x0 << ", v0 = " << v0 << ", m = " << m << std::endl;
 		double_vector coordinates;
-		const double A = spring::A(t0, x0, v0, m);
-		const double B = spring::B(t0, x0, v0, m);
 		const double omega = spring::omega(m);
-		for (double t = t0; t <= t1; t += dt)
+		const double A = x0 * sin(omega * t0) + (v0 * cos(omega * t0)) / omega;
+		const double B = x0 * cos(omega * t0) - (v0 * sin(omega * t0)) / omega;
+		std::cout << "omega = " << omega << ", A = " << A << ", B = " << B << std::endl;
+		for (double t = t0; t < t1; t += dt)
 		{
 			const double tf = std::min(t, t1);
+			// std::cout << "in spring, t = " << tf << std::endl;
 			coordinates.push_back(A * sin(omega * tf) + B * cos(omega * tf));
 		}
 		return (coordinates);
