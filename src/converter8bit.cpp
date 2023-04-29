@@ -19,4 +19,9 @@ namespace aua
 		if (bits.length() > 8)
 			throw std::invalid_argument("Sequence of invalid length provided to a 8-bit converter.");
 	}
+
+	double converter8bit::recover_value(double omega_max) const
+	{
+		return (converter_int::recover_value(omega_max));
+	}
 } // namespace aua

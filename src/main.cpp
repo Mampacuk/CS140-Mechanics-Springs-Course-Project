@@ -1,5 +1,7 @@
 #include "stdafx.hpp"
 #include "converter_float.hpp"
+#include "converter_int.hpp"
+#include "converter8bit.hpp"
 
 int main()
 {
@@ -25,15 +27,50 @@ int main()
 	{
 		aua::converter_float converter;
 
-		converter.construct_system("11.0");
-		std::cout << converter.get_system() << std::endl;
-		std::cout << converter.get_equivalent_spring() << std::endl;
-		std::cout << "approximation for \"11.0\": " << converter.approximate_value(7, 2, 3, 10) << std::endl;
-
-		converter.construct_system("111.11");
+		converter.construct_system("111.");
 		std::cout << converter.get_system() << std::endl;
 		std::cout << converter.get_equivalent_spring() << std::endl;
 
-		std::cout << "approximation for \"111.11\": " << converter.approximate_value(6, 1, 1, 10) << std::endl;
+		std::cout << "approximation for \"111.0\": " << converter.approximate_value(5) << std::endl;
+	}
+
+	{
+		aua::converter_int converter;
+
+		converter.construct_system("00010001");
+		std::cout << converter.get_system() << std::endl;
+		std::cout << converter.get_equivalent_spring() << std::endl;
+
+		std::cout << "approximation for \"00010001\": " << converter.approximate_value(4) << std::endl;
+	}
+
+	{
+		aua::converter_int converter;
+
+		converter.construct_system("10001");
+		std::cout << converter.get_system() << std::endl;
+		std::cout << converter.get_equivalent_spring() << std::endl;
+
+		std::cout << "approximation for \"00010001\": " << converter.approximate_value(4) << std::endl;
+	}
+
+	{
+		aua::converter8bit converter;
+
+		converter.construct_system("10001");
+		std::cout << converter.get_system() << std::endl;
+		std::cout << converter.get_equivalent_spring() << std::endl;
+
+		std::cout << "approximation for \"00010001\": " << converter.approximate_value(4) << std::endl;
+	}
+
+	{
+		aua::converter8bit converter;
+
+		converter.construct_system("10001");
+		std::cout << converter.get_system() << std::endl;
+		std::cout << converter.get_equivalent_spring() << std::endl;
+
+		std::cout << "approximation for \"00010001\": " << converter.approximate_value(4) << std::endl;
 	}
 }

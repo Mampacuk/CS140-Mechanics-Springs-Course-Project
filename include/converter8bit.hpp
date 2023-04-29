@@ -14,6 +14,8 @@ namespace aua
 			converter8bit &operator=(const converter8bit &other);
 		private:
 			void check_length(const std::string &bits) const;
+		private:
+			double recover_value(double omega_max) const;
 	};
 }  // namespace aua
 

@@ -43,14 +43,12 @@ namespace aua
 
 	double_vector converter::oscillate(size_t samples, double x0, double v0, double period) const
 	{
-		std::cout << "equivalent spring with k = " << this->_equivalent_spring << std::endl;
-		std::cout << samples << " samples, period = " << period << ". oscillations are:" << std::endl;
+		// std::cout << "equivalent spring with k = " << this->_equivalent_spring << std::endl;
+		// std::cout << samples << " samples, period = " << period << ". oscillations are:" << std::endl;
 		double_vector oscillations = this->_equivalent_spring.move(period, period / samples, x0, v0);
-		for (size_t i = 0; i < oscillations.size(); i++)
-		{
-			std::cout << oscillations[i] << ' ';
-		}
-		std::cout << std::endl;
+		// for (size_t i = 0; i < oscillations.size(); i++)
+		// 	std::cout << oscillations[i] << ' ';
+		// std::cout << std::endl;
 		return (oscillations);
 	}
 
@@ -71,7 +69,8 @@ namespace aua
 				j_max = j;
 			}
 		}
-		std::cout << "j_max =" << j_max << std::endl;
-		return (!j_max ? omega0 : omega0 * j_max);
+		j_max++; // to compensate for 0-indexing
+		// std::cout << "j_max =" << j_max << std::endl;
+		return (omega0 * j_max);
 	}
-}
+} // namespace aua

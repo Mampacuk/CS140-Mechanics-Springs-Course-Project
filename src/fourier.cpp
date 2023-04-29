@@ -19,20 +19,19 @@ namespace aua
 		const double omega0 = 2 * M_PI / period;
 		double_pair_vector amplitudes;
 
-		std::cout << "dt = " << dt << ", omega0 = " << omega0 << std::endl;
+		// std::cout << "dt = " << dt << ", omega0 = " << omega0 << std::endl;
 		for (size_t j = 0; j < oscillations.size(); j++)
 		{
 			double t = 0;
 			double aj = 0, bj = 0;
 			for (size_t i = 0; i < oscillations.size(); i++, t += dt)
 			{
-				// std::cout << "in fourier, t = " << t << std::endl;
 				aj += oscillations[i] * cos(j * omega0 * i * t);
 				bj += oscillations[i] * sin(j * omega0 * i * t);
 			}
 			aj = 2 * dt * aj / period;
 			bj = 2 * dt * bj / period;
-			std::cout << "a" << j << "=" << aj << ", b" << j << "=" << bj << std::endl;
+			// std::cout << "a" << j << "=" << aj << ", b" << j << "=" << bj << std::endl;
 			amplitudes.push_back(double_pair(aj, bj));
 		}
 		return (amplitudes);
