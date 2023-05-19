@@ -3,5 +3,7 @@
 
 int main()
 {
-	std::cout << aua::ball::rand(aua::table());
+	aua::ball b = aua::ball::rand(aua::table());
+	std::cout << "b currently:" << b << std::endl;
+	b.bounce();
 }

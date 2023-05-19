@@ -3,6 +3,7 @@
 
 # include "stdafx.hpp"
 # include "table.hpp"
+# include "vector2d.hpp"
 
 namespace aua
 {
@@ -21,9 +22,10 @@ namespace aua
 			static ball rand(table table);
 			const vector2d &get_position() const;
 			const vector2d &get_momentum() const;
+			vector2d bounce();
 	};
-} // namespace aua
 
-std::ostream &operator<<(std::ostream &o, const aua::ball &b);
+	std::ostream &operator<<(std::ostream &o, const aua::ball &b);
+} // namespace aua
 
 #endif

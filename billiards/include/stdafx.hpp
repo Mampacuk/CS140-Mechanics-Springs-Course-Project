@@ -6,10 +6,6 @@
 # include <numbers>
 # include <cmath>
 # include <iostream>
-
-namespace aua
-{
-	typedef std::pair<double, double> vector2d;
-} // namespace aua
+# include <stdexcept>
 
 #endif
