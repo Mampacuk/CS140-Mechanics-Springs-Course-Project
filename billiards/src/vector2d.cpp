@@ -17,12 +17,12 @@ namespace aua
 		return (*this);
 	}
 
-	double vector2d::get_x() const
+	double vector2d::x() const
 	{
 		return (_x);
 	}
 
-	double vector2d::get_y() const
+	double vector2d::y() const
 	{
 		return (_y);
 	}
@@ -37,9 +37,16 @@ namespace aua
 		_y = y;
 	}
 
-	double vector2d::magnitude() const
+	double vector2d::norm() const
 	{
 		return (std::sqrt(_x * _x + _y * _y));
+	}
+
+	void vector2d::normalize()
+	{
+		double magnitude = norm();
+		_x /= magnitude;
+		_y /= magnitude;
 	}
 
 	double vector2d::operator*(const vector2d &other) const
@@ -74,7 +81,7 @@ namespace aua
 
 	std::ostream &operator<<(std::ostream &o, const vector2d &v)
 	{
-		o << "[" << v.get_x() << ", " << v.get_y() << "]";
+		o << "(" << v.x() << ", " << v.y() << ")";
 		return (o);
 	}
 } // namespace aua

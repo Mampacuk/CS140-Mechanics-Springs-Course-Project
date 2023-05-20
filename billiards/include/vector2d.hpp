@@ -16,11 +16,12 @@ namespace aua
 			vector2d(double x, double y);
 			vector2d(const vector2d &other);
 			vector2d &operator=(const vector2d &other);
-			double get_x() const;
-			double get_y() const;
+			double x() const;
+			double y() const;
 			void set_x(double x);
 			void set_y(double y);
-			double magnitude() const;
+			double norm() const;
+			void normalize();
 			double operator*(const vector2d &other) const;
 			vector2d operator*(double scalar) const;
 			vector2d operator-() const;
