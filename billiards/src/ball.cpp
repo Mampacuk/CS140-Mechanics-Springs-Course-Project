@@ -41,6 +41,11 @@ namespace aua
 		
 		momentum.set_x(r * std::cos(theta));
 		momentum.set_y(r * std::sin(theta));
+		#ifdef DEBUG
+			std::cout << GRAY;
+			std::cout << "generated a ball with position: " << GREEN << position << GRAY << ", momentum: " << GREEN << momentum << RESET << std::endl;
+			std::cout << RESET;
+		#endif
 		return (ball(position, momentum, table));
 	}
 
@@ -75,33 +80,52 @@ namespace aua
 		vector2d answer2;
 		const double L = _table.get_length();
 		vector2d old_momentum = _momentum;
-		// std::cout << "momentum: " << _momentum << " with norm=|" << _momentum.norm() << "|, position: " << _position << std::endl;
+		#ifdef OUTPUT_COLLISION_AND_ABSERR
+			std::cout << GRAY;
+			std::cout << "current position: " << LGREEN << _position << GRAY << ", current momentum: " << LGREEN << _momentum << RESET << " ";
+			std::cout << RESET;
+		#endif
 		if (_momentum.y() != 0)
 			intersect_line(vector2d(0, _table.get_radius() * sgn(_momentum.y())), answer1);
 		if (answer1.x() < 0 || (_momentum.y() == 0 && _momentum.x() < 0))
 		{
-			// std::cout << "hit the left semi-circle" << std::endl;
+			#ifdef OUTPUT_COLLISION_AND_ABSERR
+				std::cout << LRED;
+				std::cout << "hit the left semi-circle ";
+				std::cout << RESET;
+			#endif
 			intersect_circle(vector2d(0, 0), answer1, answer2);
 			_momentum = vector2d((answer1.y() * answer1.y() - answer1.x() * answer1.x()) * _momentum.x() - 2 * answer1.x() * answer1.y() * _momentum.y(),
 							-2 * answer1.x() * answer1.y() * _momentum.x() + (answer1.x() * answer1.x() - answer1.y() * answer1.y()) * _momentum.y());
 		}
 		else if (answer1.x() > L || (_momentum.y() == 0 && _momentum.x() > 0))
 		{
-			// std::cout << "hit the right semi-circle" << std::endl;
+			#ifdef OUTPUT_COLLISION_AND_ABSERR
+				std::cout << LRED;
+				std::cout << "hit the right semi-circle ";
+				std::cout << RESET;
+			#endif
 			intersect_circle(vector2d(L, 0), answer1, answer2);
 			_momentum = vector2d((answer1.y() * answer1.y() - (answer1.x() - L) * (answer1.x() - L)) * _momentum.x() - 2 * (answer1.x() - L) * answer1.y() * _momentum.y(),
 							-2 * (answer1.x() - L) * answer1.y() * _momentum.x() + ((answer1.x() - L) * (answer1.x() - L) - answer1.y() * answer1.y()) * _momentum.y());
 		}
 		else
 		{
-			// std::cout << "hit the line" << std::endl;
-			_momentum = vector2d(_momentum.x(), _momentum.y());
+			#ifdef OUTPUT_COLLISION_AND_ABSERR
+				std::cout << LRED;
+				std::cout << "hit the line ";
+				std::cout << RESET;
+			#endif
+			_momentum = vector2d(_momentum.x(), -_momentum.y());
 		}
 		_momentum.normalize();
 		_position = answer1;
 		_reflections.push_back(_position);
-		// std::cout << "new position: " << _position << std::endl;
-		// std::cout << "new momentum: " << _momentum << std::endl; 
+		#ifdef OUTPUT_COLLISION_AND_ABSERR
+			std::cout << GRAY;
+			std::cout << "new position: " << LGREEN << _position << GRAY << ", new momentum: " << LGREEN << _momentum << RESET << std::endl; 
+			std::cout << RESET;
+		#endif
 		return (old_momentum);
 	}
 
