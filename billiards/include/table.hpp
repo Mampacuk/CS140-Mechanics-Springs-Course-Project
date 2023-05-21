@@ -8,10 +8,11 @@ namespace aua
 	class table
 	{
 		private:
-			double _radius;
-			double _length;
-			double _mom_lb;
-			double _mom_ub;
+			double	_radius;
+			double	_length;
+			double	_mom_lb;
+			double	_mom_ub;
+			bool	_vertical;
 		public:
 			~table();
 			table(const table &other);
@@ -21,6 +22,8 @@ namespace aua
 			double get_length() const;
 			double get_momentum_lb() const;
 			double get_momentum_ub() const;
+			bool is_vertical() const;
+			void rotate_axis();
 	};
 } // namespace aua
 

@@ -28,8 +28,14 @@ namespace aua
 			void set_momentum(const vector2d &momentum);
 			vector2d bounce();
 		private:
-			void intersect_circle(const vector2d &center, vector2d &answer1, vector2d &answer2);
-			void intersect_line(const vector2d &base, vector2d &answer);
+			vector2d horizontal_intersection();
+			vector2d vertical_intersection();
+			void line_intersect_circle(const vector2d &center, vector2d &answer1, vector2d &answer2) const;
+			void line_intersect_line(const vector2d &base, vector2d &answer) const;
+			void parabola_intersect_circle();
+			double objective(double r, double x0, double y0, double v0x, double v0y, double x) const;
+			double failsafe_bisection(std::function<double(double)> f, double failsafe, double x, double bound, bool upper_bound) const;
+			double bisection(std::function<double(double)> f, double a, double b, double epsilon = std::numeric_limits<double>::epsilon()) const;
 	};
 
 	std::ostream &operator<<(std::ostream &o, const aua::ball &b);
